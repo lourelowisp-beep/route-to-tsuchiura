@@ -29,6 +29,9 @@
     .btn:active { transform: translateY(1px); }
     .btn.primary { background: linear-gradient(135deg, #3fb7c4, #2ea6ba); color:#071216; }
     .note { font-size:12px; color:var(--muted); }
+      .chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:8px; }
+    .chip { appearance:none; border:1px solid #2a2f3a; background:#0f1218; color:var(--ink); border-radius:9999px; padding:8px 12px; font-size:14px; cursor:pointer; }
+    .chip:active { transform: translateY(1px); }
   </style>
 </head>
 <body>
@@ -48,6 +51,15 @@
             <input id="from" type="text" value="千葉" placeholder="例：千葉／西千葉／船橋法典／柏駅 など"
               autocomplete="on" autocapitalize="off" autocorrect="off" spellcheck="false"
               inputmode="search" enterkeyhint="go" />
+            <div class="chips" id="presets">
+              <button type="button" class="chip" data-val="千葉">千葉</button>
+              <button type="button" class="chip" data-val="西船橋">西船橋</button>
+              <button type="button" class="chip" data-val="新松戸">新松戸</button>
+              <button type="button" class="chip" data-val="柏">柏</button>
+              <button type="button" class="chip" data-val="船橋">船橋</button>
+              <button type="button" class="chip" data-val="新八柱">新八柱</button>
+              <button type="button" class="chip" data-val="南柏">南柏</button>
+            </div>
           </div>
           <div>
             <label>到着：<strong>土浦（固定）</strong></label>
@@ -118,6 +130,15 @@
 
     window.addEventListener('DOMContentLoaded', ()=>{
       $('#searchForm').addEventListener('submit', handleSubmit);
+      // プリセット（ワンタップで入力反映）
+      document.querySelectorAll('.chip').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const v = btn.getAttribute('data-val') || btn.textContent.trim();
+          const f = document.getElementById('from');
+          f.value = v;
+          try { f.focus({preventScroll:true}); if(f.setSelectionRange) f.setSelectionRange(f.value.length, f.value.length); } catch(_) {}
+        });
+      });
       $('#from').addEventListener('keydown', (e)=>{
         if(e.key === 'Enter' && !e.isComposing){ e.preventDefault(); handleSubmit(); }
       });
