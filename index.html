@@ -154,5 +154,54 @@
       });
     });
   </script>
+  <script>
+// ===== 経路セグメントごとの駅 =====
+
+// 総武線（千葉 → 西船橋）
+const SOBU_SEG = [
+  "千葉","西千葉","稲毛","新検見川","幕張","幕張本郷","津田沼","東船橋","船橋","西船橋"
+];
+
+// 武蔵野線（西船橋 → 新松戸）
+const MUSA_SEG = [
+  "西船橋","船橋法典","市川大野","東松戸","新八柱","新松戸"
+];
+
+// 常磐線（新松戸 → 土浦）
+const JOBAN_SEG = [
+  // 新松戸から取手まで（各駅）
+  "新松戸","北小金","南柏","柏","北柏","我孫子","天王台","取手",
+  // 取手から土浦まで（常磐線）
+  "藤代","佐貫","牛久","ひたち野うしく","荒川沖","土浦"
+];
+
+// 出発欄（IDが違う場合は適宜変更）
+const depInput = document.querySelector('#from');
+
+// 汎用：ボタン生成
+function makeChips(containerId, names){
+  const box = document.getElementById(containerId);
+  if(!box) return;
+  box.innerHTML = "";
+  names.forEach(name=>{
+    const b = document.createElement('button');
+    b.type = "button";
+    b.className = "chip";
+    b.textContent = name;
+    b.addEventListener('click', ()=>{
+      if(!depInput) return;
+      depInput.value = name;
+      depInput.dispatchEvent(new Event('change'));
+      try { depInput.focus({preventScroll:true}); } catch(_) {}
+    });
+    box.appendChild(b);
+  });
+}
+
+// 初期描画
+makeChips('chips-sobu-seg', SOBU_SEG);
+makeChips('chips-musa-seg', MUSA_SEG);
+makeChips('chips-joban-seg', JOBAN_SEG);
+</script>
 </body>
 </html>
