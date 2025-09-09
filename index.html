@@ -48,15 +48,23 @@
             <input id="from" type="text" value="千葉" placeholder="例：千葉／西千葉／船橋法典／柏駅 など"
               autocomplete="on" autocapitalize="off" autocorrect="off" spellcheck="false"
               inputmode="search" enterkeyhint="go" />
-            <div class="chips" id="presets">
-              <button type="button" class="chip" data-val="千葉">千葉</button>
-              <button type="button" class="chip" data-val="西船橋">西船橋</button>
-              <button type="button" class="chip" data-val="新松戸">新松戸</button>
-              <button type="button" class="chip" data-val="柏">柏</button>
-              <button type="button" class="chip" data-val="船橋">船橋</button>
-              <button type="button" class="chip" data-val="新八柱">新八柱</button>
-              <button type="button" class="chip" data-val="南柏">南柏</button>
-            </div>
+            <!-- 出発プリセット：経路ごと -->
+<div id="presets" class="presets">
+  <div class="line-group">
+    <div class="line-title">総武線（千葉 → 西船橋）</div>
+    <div class="chips" id="chips-sobu-seg"></div>
+  </div>
+
+  <div class="line-group">
+    <div class="line-title">武蔵野線（西船橋 → 新松戸）</div>
+    <div class="chips" id="chips-musa-seg"></div>
+  </div>
+
+  <div class="line-group">
+    <div class="line-title">常磐線（新松戸 → 土浦）</div>
+    <div class="chips" id="chips-joban-seg"></div>
+  </div>
+</div>
           </div>
           <div>
             <label>到着：<strong>土浦（固定）</strong></label>
